@@ -20,6 +20,8 @@
 //= require admin/plugins/chartist.min
 //= require admin/plugins/arrive.min
 //= require admin/plugins/bootstrap-notify
+//= require admin/plugins/jquery.dataTables.min
+//= require custom
 //= require rails-ujs
 
 
