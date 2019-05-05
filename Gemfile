@@ -34,9 +34,6 @@ gem 'jbuilder', '~> 2.5'
 
 ###custom gem###
 
-#sql server gem
-gem 'activerecord-sqlserver-adapter'
-
 #####end custom gem######
 
 # Reduces boot times through caching; required in config/boot.rb
