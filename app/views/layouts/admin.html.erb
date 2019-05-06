@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vision Map</title>
+
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		<link rel="shortcut icon" type="image/x-icon" href="/assets/logo-thumbnail" />
+		
+		<!--     bootstrap    -->
+		<%= stylesheet_link_tag "html/bootstrap" %>
+	  <%= stylesheet_link_tag "html/font-awesome/css/font-awesome" %>
+    <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" %>
+		<%= javascript_include_tag "html/bootstrap" %>
+
+  </head>
+
+	<body>
+	<div class="wrapper ">
+		<!--     side menu    -->
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="">
+      <div class="logo">
+        <a href="#" class="simple-text logo-normal">
+          Fantasy Foosball
+        </a>
+      </div>
+			<div class="sidebar-wrapper">
+					<!--     side menu items    -->
+					<%= render "admin/shared/submenu" %>
+      </div>
+    </div>
+		<!--     end side menu    -->
+
+		<!--     content    -->
+		<div class="main-panel">
+			<div class="content">
+				<div class="container-fluid">
+					<%= yield %>
+				</div>
+			</div>	
+		</div>		
+		<!--     end content    -->	
+	</div>
+	</body>
+	
+</html>
