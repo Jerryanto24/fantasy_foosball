@@ -1,0 +1,19 @@
+
+<!-- check if any error -->
+<% if @user.errors.any? %>
+
+
+    $('.is-error').remove();
+
+    <!-- show error message and higlight field for being error -->
+    <% @user.errors.each do |key, value| %>
+
+        show_error('<%= key %>', '<%= value %>', '<%= @user.class.name.demodulize %>');
+        
+        setTimeout (function()  {
+            show_notification('<%= value %>', 'warning');
+        }, 1000);
+
+    <% end %>
+
+<% end %>

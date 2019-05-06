@@ -1,0 +1,12 @@
+<!----------     side menu items   --------->
+
+<!--     user menu   -->
+<ul class="nav">
+	<li class="nav-item <%= ("active" if (controller_name == "users")) %>  ">
+		<a class="nav-link" href="<%= admin_users_path %>">
+  			<i class="material-icons">person</i>
+  			<p>User</p>
+		</a>
+	</li>	
+</ul>
+
