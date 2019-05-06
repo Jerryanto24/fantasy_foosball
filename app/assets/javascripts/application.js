@@ -15,16 +15,14 @@
 //= require admin/plugins/bootstrap-material-design.min
 //= require admin/plugins/perfect-scrollbar.jquery.min
 //= require admin/material-dashboard/material-dashboard
-//= require admin/material-dashboard/demo
 //= require admin/plugins/moment.min
 //= require admin/plugins/chartist.min
 //= require admin/plugins/arrive.min
 //= require admin/plugins/bootstrap-notify
 //= require admin/plugins/jquery.dataTables.min
-//= require custom
+
 //= require rails-ujs
-
-
 //= require activestorage
 //= require turbolinks
+//= require custom
 //= require_tree .
