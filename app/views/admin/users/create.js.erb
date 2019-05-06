@@ -2,7 +2,6 @@
 <!-- check if any error -->
 <% if @user.errors.any? %>
 
-
     $('.is-error').remove();
 
     <!-- show error message and higlight field for being error -->
@@ -15,11 +14,5 @@
         }, 1000);
 
     <% end %>
-
-
-<% else %>
-
-    <!-- after ajax save data, append saved data into datatable in index page -->
-    $("<%= j render @user %>").appendTo(".datatables.table-action");
 
 <% end %>

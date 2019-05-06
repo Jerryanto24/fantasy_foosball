@@ -28,16 +28,14 @@ class Admin::UsersController < Admin::BaseController
 
     respond_to do |format|
       if @user.save
-        
-        #this will invoke create.js.erb (formmat.js)
-        format.js
-        flash[:notice] = "User was successfully created."
-        redirect_to admin_users_path
-        
+        format.html { redirect_to admin_users_path, notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: @user }    
       else
 
         #this will invoke create.js.erb (formmat.js)
         format.js
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
 
       end
     end
@@ -54,6 +52,8 @@ class Admin::UsersController < Admin::BaseController
 
         #this will invoke update.js.erb (formmat.js)
         format.js
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
         
       end
     end
@@ -64,10 +64,8 @@ class Admin::UsersController < Admin::BaseController
   def destroy
     @user.destroy
     respond_to do |format|
-
-      #this will invoke destroy.js.erb (formmat.js)
-      format.js
-
+      format.html { redirect_to admin_users_url, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
