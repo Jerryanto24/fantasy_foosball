@@ -47,6 +47,8 @@ class Admin::TeamsController < Admin::BaseController
       if @team.save
 
         format.html { redirect_to admin_teams_path, notice: 'Team was successfully created.' }
+        #this will invoke create.js.erb (formmat.js)
+        format.js
         format.json { render :show, status: :created, location: @team }
        
       else
@@ -84,7 +86,7 @@ class Admin::TeamsController < Admin::BaseController
       
       #this will invoke create.js.erb (formmat.js)
       format.js
-      format.html { redirect_to teams_url, notice: 'Team was successfully deleted.' }
+      format.html { redirect_to admin_teams_path, notice: 'Team was successfully deleted.' }
       format.json { head :no_content }
     end
   end
