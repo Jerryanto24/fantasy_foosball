@@ -1,0 +1,18 @@
+
+<!-- check if any error -->
+<% if @team.errors.any? %>
+
+    $('.is-error').remove();
+
+    <!-- show error message and higlight field for being error -->
+    <% @team.errors.each do |key, value| %>
+
+        show_error('<%= key %>', '<%= value %>', '<%= @team.class.name.demodulize %>');
+        
+        setTimeout (function()  {
+            show_notification('<%= value %>', 'warning');
+        }, 1000);
+
+    <% end %>
+
+<% end %>

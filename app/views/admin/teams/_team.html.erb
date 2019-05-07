@@ -1,0 +1,21 @@
+<!-- index data  -->
+<tr>
+  <td><%= team.team_name if team.team_name %></td>
+  <td><%= team.player_one.first_name + ' ' + team.player_one.last_name if team.player_one_id %></td>
+  <td><%= team.player_two.first_name + ' ' + team.player_two.last_name  if team.player_two_id %></td>
+  <td class="text-right">
+    <%= link_to edit_admin_team_path(team.id), class: "text-primary btn-just-icon" do %>
+      <i class="material-icons">edit</i>
+    <% end %>
+  </td>
+  <td class="text-right">
+    <%= link_to admin_team_path(team.id), class: "text-info btn-just-icon" do %>
+      <i class="material-icons">dehaze</i>
+    <% end %>
+  </td>
+  <td class="text-right">
+    <%= link_to admin_team_path(team.id), class: "text-danger btn-just-icon delete",  method: :delete, data: { confirm: 'Are you sure?', remote: true }  do %>
+      <i class="material-icons">close</i>
+    <% end %>
+  </td>
+</tr>

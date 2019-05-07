@@ -1,0 +1,93 @@
+<!-- form_with using ajax to save data remote=true -->
+
+<%= form_with(model: [:admin, @team]) do |f| %>
+<div class="card-body">  
+  <div class="row mt-3">
+    <div class="col-md-12">
+    
+      
+      <div class="row">
+        <div class="col-sm-6 mr-auto">
+          <div class="form-group">
+            <%= f.label :team_name, t("Team Name"), :class=> "bmd-label-floating" %>
+            <%= f.text_field :team_name, autofocus: false, :class =>"form-control ", autocomplete: "off"%>
+          </div>
+        </div>
+      </div>
+      </br>
+      <div class="row">
+        <div class="col-sm-6 mr-auto">
+          <div class="form-group">
+            <%= f.label :player_one, t("Player One"), :class=> "bmd-label-floating" %>
+            <%= f.text_field :player_one_text, autofocus: false, :class =>"form-control typeahead", autocomplete: "off"%>
+            <%= f.hidden_field :player_one_id %>
+          </div>
+        </div>
+      </div>
+      </br>
+      <div class="row">
+        <div class="col-sm-6 mr-auto">
+          <div class="form-group">
+            <%= f.label :player_two, t("Player Two"), :class=> "bmd-label-floating" %>
+            <%= f.text_field :player_two_text, autofocus: false, :class =>"form-control typeahead", autocomplete: "off"%>
+            <%= f.hidden_field :player_two_id %>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+    <!-- col-md-12 -->
+  </div>
+  <!-- end row mt-3 -->
+</div>
+<!-- end card-body -->
+
+<!-- footer-->
+<div class="card-footer">   
+    <button type="submit" class="btn btn-fill btn-primary btn-submit">Save</button> 
+    <%= link_to t("back"), admin_teams_path, {:class => "btn btn-link btn-primary mr-auto" } %>
+</div>
+<% end %>
+
+<script>
+
+//generate list of users into array
+var user =  function(){
+
+  let user_array = [];
+  let i = 0;
+  <% @users.each do |user| %>
+    user_array[i] = {
+      id: '<%= user.id %>',
+      name: '<%= user.first_name %>' + ' ' + '<%= user.last_name %>'
+      };
+
+      i++;
+  <% end %>
+
+  return user_array;
+};
+
+	
+//assign player one  and player two text field for autocomplete
+$('.typeahead').each(function(){
+  var $this = $(this);
+  $this.typeahead({
+
+      source: user(),
+      highlight: true,
+      minLength: 1,
+      limit: Infinity,
+      updater:function (item) {
+
+        //set value for hidden input
+        $this.nextAll('input:hidden').val(item.id);
+        return item;
+      }
+  
+    });
+  });
+
+
+</script>
