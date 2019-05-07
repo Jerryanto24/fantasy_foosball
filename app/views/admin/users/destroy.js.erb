@@ -1,0 +1,9 @@
+<!-- after ajax success deleted data, remove deleted data in index's datatable -->
+$(".delete").on('ajax:success', function(event) {
+    $(this).closest('tr').fadeOut();
+
+    <!-- show notification/flash/alert after delete data -->
+    show_notification('User was successfully deleted', 'success');
+
+  });
+

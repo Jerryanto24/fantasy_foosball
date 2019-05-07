@@ -4,7 +4,13 @@ class Admin::UsersController < Admin::BaseController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    #get all user list
+    @users = User.all.joins('LEFT JOIN teams player1 on player1.player_one_id = users.id
+                             LEFT JOIN teams player2 on player2.player_two_id = users.id')
+                  .select(' users.id ,users.first_name, users.last_name, CASE WHEN player1.team_name is not null THEN player1.team_name 
+                                                        WHEN player2.team_name is not null THEN player2.team_name
+                                                        ELSE "" END AS team_name')
+                
   end
 
   # GET /users/1
@@ -64,7 +70,9 @@ class Admin::UsersController < Admin::BaseController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to admin_users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to admin_users_path, notice: 'User was successfully destroyed.' }
+      #this will invoke create.js.erb (formmat.js)
+      format.js
       format.json { head :no_content }
     end
   end

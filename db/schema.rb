@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_05_064731) do
+ActiveRecord::Schema.define(version: 2019_05_06_155704) do
+
+  create_table "teams", force: :cascade do |t|
+    t.string "team_name", limit: 200
+    t.integer "player_one_id"
+    t.integer "player_two_id"
+    t.integer "wins_game"
+    t.integer "losses_game"
+    t.integer "total_game"
+    t.integer "wins_match"
+    t.integer "losses_match"
+    t.integer "total_match"
+    t.integer "total_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", limit: 100
