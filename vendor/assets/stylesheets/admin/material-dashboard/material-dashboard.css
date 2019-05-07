@@ -3399,26 +3399,6 @@ tbody.collapse.show {
   margin-left: 0;
 }
 
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  display: none;
-  float: left;
-  min-width: 10rem;
-  padding: 0.5rem 0;
-  margin: 0.125rem 0 0;
-  font-size: 1rem;
-  color: #212529;
-  text-align: left;
-  list-style: none;
-  background-color: #ffffff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-}
 
 .dropup .dropdown-menu {
   margin-top: 0;
@@ -14023,17 +14003,6 @@ h2.title {
   color: #555;
 }
 
-.dropdown-menu {
-  display: none;
-  padding: 0.3125rem 0;
-  border: 0;
-  opacity: 0;
-  transform: scale(0);
-  transform-origin: 0 0;
-  will-change: transform, opacity;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
 
 .dropdown-menu.showing {
   animation-name: bmd-dropdown-animation;

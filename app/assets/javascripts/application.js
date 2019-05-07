@@ -19,6 +19,7 @@
 //= require admin/plugins/chartist.min
 //= require admin/plugins/arrive.min
 //= require admin/plugins/bootstrap-notify
+//= require admin/plugins/bootstrap3-typeahead.min
 //= require admin/plugins/jquery.dataTables.min
 
 //= require rails-ujs
