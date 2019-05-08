@@ -208,7 +208,7 @@ $( ".score" ).change(function() {
 
   let attribute = $("#" + this.id +"").attr("temporary-id");
   
-  if ($("#match_games_attributes_"+ attribute +"_home_point").val() > $("#match_games_attributes_"+ attribute +"_away_point").val())
+  if (parseInt($("#match_games_attributes_"+ attribute +"_home_point").val()) > parseInt($("#match_games_attributes_"+ attribute +"_away_point").val()))
   {
 
     //home team win, set match details winner and loser (text and id)
@@ -220,7 +220,7 @@ $( ".score" ).change(function() {
     
   }
 
-  if ($("#match_games_attributes_"+ attribute +"_home_point").val() < $("#match_games_attributes_"+ attribute +"_away_point").val())
+  if (parseInt($("#match_games_attributes_"+ attribute +"_home_point").val()) < parseInt($("#match_games_attributes_"+ attribute +"_away_point").val()))
     {
   
       //away team win, set match details winner and loser (text and id)
