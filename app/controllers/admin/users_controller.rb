@@ -35,8 +35,6 @@ class Admin::UsersController < Admin::BaseController
     respond_to do |format|
       if @user.save
         format.html { redirect_to admin_users_path, notice: 'User was successfully created.' }
-        #this will invoke create.js.erb (formmat.js)
-        format.js
         format.json { render :show, status: :created, location: @user }    
       else
 
