@@ -10,7 +10,7 @@ class Game < ApplicationRecord
     validate :winning_point
     def winning_point
         if (home_point != 10  && away_point != 10)
-            errors.add(:home_point,"Please make sure the point is meet 10. Game winning point is 10 ")
+            errors.add(:home_point,"Please make sure one of the team's point is meet 10. Game winning point is 10 ")
             errors.add(:away_point, "")
         end    
     end
