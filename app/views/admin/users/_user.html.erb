@@ -14,8 +14,10 @@
     <% end %>
   </td>
   <td class="text-right">
-    <%= link_to admin_user_path(user.id), class: "text-danger btn-just-icon delete",  method: :delete, data: { confirm: 'Are you sure?', remote: true }  do %>
-      <i class="material-icons">close</i>
+    <% if user.team_name == "" %>
+      <%= link_to admin_user_path(user.id), class: "text-danger btn-just-icon delete",  method: :delete, data: { confirm: 'Are you sure?', remote: true }  do %>
+        <i class="material-icons">close</i>
+      <% end %>
     <% end %>
   </td>
 </tr>

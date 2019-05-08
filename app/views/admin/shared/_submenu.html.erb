@@ -20,5 +20,16 @@
 	</li>	
 </ul>
 
+<!--     match menu   -->
+<ul class="nav">
+	<li class="nav-item <%= ("active" if (controller_name == "matches")) %>  ">
+		<a class="nav-link" href="<%= admin_matches_path %>">
+  			<i class="material-icons">offline_bolt</i>
+  			<p>Matches</p>
+		</a>
+	</li>	
+</ul>
+
+
 
 

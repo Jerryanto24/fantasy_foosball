@@ -1,0 +1,23 @@
+<!-- index data  -->
+<tr>
+  <td><%= match.match_name if match.match_name %></td>
+  <td><%= match.game_type.game_type_name %></td>
+  <td><%= match.home_team.team_name %></td>
+  <td><%= match.away_team.team_name %></td>
+  <td><%= match.match_winner.team_name %></td>
+  <td class="text-right">
+    <%= link_to edit_admin_match_path(match.id), class: "text-primary btn-just-icon" do %>
+      <i class="material-icons">edit</i>
+    <% end %>
+  </td>
+  <td class="text-right">
+    <%= link_to admin_match_path(match.id), class: "text-info btn-just-icon" do %>
+      <i class="material-icons">dehaze</i>
+    <% end %>
+  </td>
+  <td class="text-right">
+    <%= link_to admin_match_path(match.id), class: "text-danger btn-just-icon delete",  method: :delete, data: { confirm: 'Are you sure?', remote: true }  do %>
+      <i class="material-icons">close</i>
+    <% end %>
+  </td>
+</tr>

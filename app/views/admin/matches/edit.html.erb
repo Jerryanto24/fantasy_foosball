@@ -1,0 +1,285 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header card-header-icon card-header-primary">
+                <div class="card-icon">
+                    <i class="material-icons">offline_bolt</i>
+  			        <p>Matches</p>
+                </div>
+                <h4 class="card-title">Edit Match</h4>
+            </div>
+
+            <%= form_with(model: [:admin, @match]) do |f| %>
+
+            <div class="card-body">  
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                    
+                    
+                    <div class="row">
+                    <div class="col-sm-6 mr-auto">
+                      <div class="form-group">
+                        <%= f.label :match_name, t("Match Name"), :class=> "bmd-label-floating" %>
+                        <%= f.text_field :match_name, autofocus: false, :class =>"form-control ", autocomplete: "off", :disabled => true %>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 mr-auto float-left" style="">
+                      <div class="form-group">
+                        <%= f.label :game_type_id, t("Game Type"), :class=> "bmd-label-floating" %>
+                        <%= f.text_field :game_type_id, :value => (f.object.game_type.game_type_name), autofocus: false, :class =>"form-control ", autocomplete: "off", :disabled => true %>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end first row -->
+                  </br>
+            
+                  <div class="row">   
+                  
+                    <!-- home team -->    
+                    <div class="col-sm-5 mr-auto">
+                      <div class="form-group">
+                        <%= f.label :home_team_id, t("Home Team"), :class=> "bmd-label-floating" %>
+                        <%= text_field :home_team, "text", :value => f.object.away_team.team_name, :team => "home", autofocus: false, :class =>"form-control typeahead-team", autocomplete: "off" , :disabled => true %>
+                        <%= f.hidden_field :home_team_id %>
+                      </div>
+                    </div>
+            
+                    <div class="col-sm-2 float-left">
+                      <h6 class="mt-2 text-center">
+                        HOME VS AWAY
+                      </h6>
+                    </div>
+            
+                    <!-- away team -->                                        
+                    <div class="col-sm-5 float-left">
+                      <div class="form-group">
+                        <%= f.label :home_away_id, t("Away Team"), :class=> "bmd-label-floating" %>
+                        <%= text_field :away_team, "text", :value => f.object.home_team.team_name , :team => "away", autofocus: false, :class =>"form-control typeahead-team", autocomplete: "off" , :disabled => true%>
+                        <%= f.hidden_field :away_team_id %>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end second row -->
+            
+                  <div class="row">
+                                                            <!-- home team member -->
+                    <div class="col-sm-3 mr-auto">
+                      <div class="form-group">
+                        <%= f.label :home_player_one_id, t("Home Player 1"), :class=> "bmd-label-floating" %>
+                        <%= f.text_field :home_player_one_id, :value => (f.object.home_player_one_id ? f.object.home_player_one.first_name + ' ' +  f.object.home_player_one.last_name : "") , autofocus: false, :class =>"form-control ", autocomplete: "off", :disabled => true %>
+                      </div>
+                    </div>
+            
+                    <div class="col-sm-3 mr-auto home-player2">
+                      <div class="form-group">
+                        <%= f.label :home_player_two_id, t("Home Player 2"), :class=> "bmd-label-floating" %>
+                        <%= f.text_field :home_player_two_id, :value => (f.object.home_player_two_id ? f.object.home_player_two.first_name + ' ' +  f.object.home_player_two.last_name : "") , autofocus: false, :class =>"form-control ", autocomplete: "off", :disabled => true %>
+                      </div>
+                    </div>
+            
+                                                            <!-- away team member -->
+                    <div class="col-sm-3 mr-auto away-player2">
+                      <div class="form-group">
+                        <%= f.label :away_player_two_id, t("Away Player 2"), :class=> "bmd-label-floating float-right" %>
+                        <%= f.text_field :away_player_two_id, :value => (f.object.away_player_two_id ? f.object.away_player_two.first_name + ' ' +  f.object.away_player_two.last_name : "") , autofocus: false, :class =>"form-control ", autocomplete: "off", :disabled => true %>
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-3 float-left">
+                      <div class="form-group">
+                        <%= f.label :away_player_one_id, t("Away Player 1"), :class=> "bmd-label-floating float-right" %>
+                        <%= f.text_field :away_player_one_id, :value => (f.object.away_player_one_id ? f.object.away_player_one.first_name + ' ' +  f.object.away_player_one.last_name : "") , autofocus: false, :class =>"form-control ", autocomplete: "off", :disabled => true %>
+                      </div>
+                    </div>
+            
+                  </div>
+                  <!-- end third row -->
+                   
+                  <% $i = 0 %>
+                  <%= f.fields_for :games , @match.games  do |d| %>
+                    <div class="row"> 
+                        <div class="col-sm-2">
+                            <h6 class="mt-2">
+                            <%= d.object.game_name %>
+                            </h6>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="col-sm-3 mr-auto">
+                            <div class="form-group">
+                                <%= d.label :home_point, t("Home Team Score"), :class=> "bmd-label-floating" %>
+                                <%= d.select :home_point, options_for_select((0..10), :selected => d.object.home_point), {include_blank: false}, { "class": " form-control score", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8" , "temporary-id": $i} %>
+                            </div>
+                        </div>
+                    
+                        <div class="col-sm-3 mr-auto home-player2">
+                            <div class="form-group">
+                                <%= d.label :away_point, t("Away Team Score"), :class=> "bmd-label-floating" %>
+                                <%= d.select :away_point, options_for_select((0..10), :selected => d.object.away_point), {include_blank: false}, { "class": " form-control score", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8", "temporary-id": $i } %>
+                            </div>
+                        </div>
+                    
+                        <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+                            <div class="form-group">
+                                <%= d.label :winner_team_id, t("winner"), :class=> "bmd-label-floating" %>                      
+                                <%= text_field :winner_team, "text_" + $i.to_s, :value => (d.object.winner_team_id ? d.object.game_winner.team_name : "") , autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+                                <%= d.hidden_field :winner_team_id, :class => "result-data" %>
+                            </div>
+                        </div>
+                    
+                        <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+                            <div class="form-group">
+                                <%= d.label :loser_team_id, t("Loser"), :class=> "bmd-label-floating" %>
+                                <%= text_field :loser_team, "text_" + $i.to_s, :value => (d.object.loser_team_id ? d.object.game_loser.team_name : "") , autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+                                <%= d.hidden_field :loser_team_id, :class => "result-data" %>
+                            </div>
+                        </div>
+                    
+                    <% $i = $i + 1 %>    
+                    </div>
+                    <!-- end fourth row -->
+                <% end %>
+            
+                  <div class="row"> 
+                    <div class="col-sm-2">
+                      <h6 class="mt-2">
+                        Result
+                      </h6>
+                    </div>
+                  </div>
+            
+            
+                  <div class="row">
+                  
+                    <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+                      <%= f.label :winner_team_id, t("winner"), :class=> "" %>
+                        <div class="form-group">
+                          <%= text_field :winner_team, :text, :value => f.object.match_winner.team_name, autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+                          <%= f.hidden_field :winner_team_id, :class => "result-data" %>
+                        </div>
+                    </div>
+            
+                    <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+                      <%= f.label :winner_team_id, t("Loser"), :class=> "bmd-label-floating" %>
+                        <div class="form-group">
+                            <%= text_field :loser_team, :text, :value => f.object.match_loser.team_name, autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+                            <%= f.hidden_field :loser_team_id, :class => "result-data" %>
+                        </div>
+                    </div>      
+            
+                  </div>
+                  <!-- end fourth row -->
+
+      
+                    </div>
+                    <!-- col-md-12 -->
+                </div>
+                <!-- end row mt-3 -->
+            </div>
+            <!-- end card-body -->
+
+            <!-- footer-->
+            <div class="card-footer">   
+                <button type="submit" class="btn btn-fill btn-primary btn-submit">Update</button> 
+                <%= link_to t("back"), admin_matches_path, {:class => "btn btn-link btn-primary mr-auto" } %>
+            </div>
+            <% end %>
+
+        </div>
+         <!-- end card -->
+    </div>
+    <!-- end col-md-12 -->
+</div>    
+<!-- end row -->
+
+
+<script>
+
+
+//----------event part-------------------
+
+
+//match winner/loser, compare from score
+$( ".score" ).change(function() {
+
+  let attribute = $("#" + this.id +"").attr("temporary-id");
+  
+  if ($("#match_games_attributes_"+ attribute +"_home_point").val() > $("#match_games_attributes_"+ attribute +"_away_point").val())
+  {
+
+    //home team win, set match details winner and loser (text and id)
+    $("#match_games_attributes_"+ attribute +"_winner_team_id").val($("#match_home_team_id").val());
+    $("#match_games_attributes_"+ attribute +"_loser_team_id").val($("#match_away_team_id").val());
+
+    $("#winner_team_text_" + attribute + "").val($("#home_team_text").val());
+    $("#loser_team_text_" + attribute + "").val($("#away_team_text").val());
+    
+  }
+
+  if ($("#match_games_attributes_"+ attribute +"_home_point").val() < $("#match_games_attributes_"+ attribute +"_away_point").val())
+    {
+  
+      //away team win, set match details winner and loser (text and id)
+      $("#match_games_attributes_"+ attribute +"_winner_team_id").val($("#match_away_team_id").val());
+      $("#match_games_attributes_"+ attribute +"_loser_team_id").val($("#match_home_team_id").val());
+  
+      $("#winner_team_text_" + attribute + "").val($("#away_team_text").val());
+      $("#loser_team_text_" + attribute + "").val($("#home_team_text").val());
+      
+    }
+  
+  //check match winner
+  determineMatchWinner();
+
+});
+
+//checking winner/loser with 3 posibilities
+function determineMatchWinner()
+{
+       
+
+  if ($("#match_games_attributes_0_winner_team_id").val() != "" && $("#match_games_attributes_1_winner_team_id").val() != "" && $("#match_games_attributes_2_winner_team_id").val() != "")
+    {
+      //clear match winner and loser
+      $("#winner_team_text").val("");
+      $("#match_winner_team_id").val("");  
+
+      $("#loser_team_text").val("");
+      $("#match_loser_team_id").val("");  
+
+      if ($("#match_games_attributes_0_winner_team_id").val() === $("#match_games_attributes_1_winner_team_id").val())
+      {
+        $("#winner_team_text").val($("#winner_team_text_0").val());
+        $("#match_winner_team_id").val($("#match_games_attributes_0_winner_team_id").val());
+
+        $("#loser_team_text").val($("#winner_team_text_2").val());
+        $("#match_loser_team_id").val($("#match_games_attributes_2_winner_team_id").val());  
+
+      } 
+      else if  ($("#match_games_attributes_0_winner_team_id").val() === $("#match_games_attributes_2_winner_team_id").val())
+      {
+        $("#winner_team_text").val($("#winner_team_text_0").val());
+        $("#match_winner_team_id").val($("#match_games_attributes_0_winner_team_id").val());
+
+        $("#loser_team_text").val($("#winner_team_text_1").val());
+        $("#match_loser_team_id").val($("#match_games_attributes_1_winner_team_id").val());  
+
+        
+      }
+      else if ($("#match_games_attributes_1_winner_team_id").val() === $("#match_games_attributes_2_winner_team_id").val())
+      {
+        $("#winner_team_text").val($("#winner_team_text_1").val());
+        $("#match_winner_team_id").val($("#match_games_attributes_1_winner_team_id").val());  
+
+        $("#loser_team_text").val($("#winner_team_text_0").val());
+        $("#match_loser_team_id").val($("#match_games_attributes_0_winner_team_id").val());  
+      }
+    }
+
+}
+
+</script>

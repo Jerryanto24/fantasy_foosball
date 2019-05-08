@@ -47,8 +47,6 @@ class Admin::TeamsController < Admin::BaseController
       if @team.save
 
         format.html { redirect_to admin_teams_path, notice: 'Team was successfully created.' }
-        #this will invoke create.js.erb (formmat.js)
-        format.js
         format.json { render :show, status: :created, location: @team }
        
       else

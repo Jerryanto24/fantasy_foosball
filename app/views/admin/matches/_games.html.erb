@@ -1,0 +1,43 @@
+<div class="row"> 
+    <div class="col-sm-2">
+        <h6 class="mt-2">
+        GAME <%= num + 1 %>
+        </h6>
+    </div>
+</div>
+
+<%= f.hidden_field :game_name, :value => "Game " + (num+1).to_s %>
+<div class="row">
+    <div class="col-sm-3 mr-auto">
+        <div class="form-group">
+            <%= f.label :home_point, t("Home Team Score"), :class=> "bmd-label-floating" %>
+            <%= f.select :home_point, options_for_select((0..10)), {include_blank: false}, { "class": " form-control score", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8" , "temporary-id": num} %>
+        </div>
+    </div>
+
+    <div class="col-sm-3 mr-auto home-player2">
+        <div class="form-group">
+            <%= f.label :away_point, t("Away Team Score"), :class=> "bmd-label-floating" %>
+            <%= f.select :away_point, options_for_select((0..10)), {include_blank: false}, { "class": " form-control score", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8", "temporary-id": num } %>
+        </div>
+    </div>
+
+    <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+        <div class="form-group">
+            <%= f.label :winner_team_id, t("winner"), :class=> "bmd-label-floating" %>
+            <%= text_field :winner_team, "text_" + num.to_s , autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+            <%= f.hidden_field :winner_team_id, :class => "result-data" %>
+        </div>
+    </div>
+
+    <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+        <div class="form-group">
+            <%= f.label :loser_team_id, t("Loser"), :class=> "bmd-label-floating" %>
+            <%= text_field :loser_team, "text_" + num.to_s , autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+            <%= f.hidden_field :loser_team_id, :class => "result-data" %>
+        </div>
+    </div>
+
+</div>
+<!-- end first row -->
+

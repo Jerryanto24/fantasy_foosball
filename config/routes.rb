@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :matches
   root to: 'home#index'
   get 'home/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -8,6 +9,13 @@ Rails.application.routes.draw do
   namespace :admin do
       resources :users
       resources :teams
+      
+      resources :matches do
+			collection do
+				get :get_players
+			end
+    end
+    
   end  
 
 end

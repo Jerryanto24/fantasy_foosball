@@ -1,0 +1,354 @@
+<!-- form_with using ajax to save data remote=true -->
+
+<%= form_with(model: [:admin, @match],:url => { :action => "create" }, :html => {:multipart => true}) do |f| %>
+<div class="card-body">  
+  <div class="row mt-3">
+    <div class="col-md-12">
+    
+      
+      <div class="row">
+        <div class="col-sm-6 mr-auto">
+          <div class="form-group">
+            <%= f.label :match_name, t("Match Name"), :class=> "bmd-label-floating" %>
+            <%= f.text_field :match_name, autofocus: false, :class =>"form-control ", autocomplete: "off"%>
+          </div>
+        </div>
+        <div class="col-sm-6 mr-auto float-left" style="margin-top:-30px;">
+          <div class="form-group">
+            <%= f.label :game_type_id, t("Game Type"), :class=> "bmd-label-floating" %>
+            <%= f.select :game_type_id, options_from_collection_for_select(GameType.all, "id", "game_type_name", :selected => "2"), {include_blank: false}, { "class": " form-control", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8" } %>
+          </div>
+        </div>
+      </div>
+      <!-- end first row -->
+      </br>
+
+      <div class="row">   
+      
+        <!-- home team -->    
+        <div class="col-sm-5 mr-auto">
+          <div class="form-group">
+            <%= f.label :home_team_id, t("Select Home Team"), :class=> "bmd-label-floating" %>
+            <%= text_field :home_team, "text", :team => "home", autofocus: false, :class =>"form-control typeahead-team", autocomplete: "off"%>
+            <%= f.hidden_field :home_team_id %>
+          </div>
+        </div>
+
+        <div class="col-sm-2 float-left">
+          <h6 class="mt-2 text-center">
+            HOME VS AWAY
+          </h6>
+        </div>
+
+        <!-- away team -->                                        
+        <div class="col-sm-5 float-left">
+          <div class="form-group">
+            <%= f.label :home_away_id, t("Select Away Team"), :class=> "bmd-label-floating" %>
+            <%= text_field :away_team, "text", :team => "away", autofocus: false, :class =>"form-control typeahead-team", autocomplete: "off"%>
+            <%= f.hidden_field :away_team_id %>
+          </div>
+        </div>
+      </div>
+      <!-- end second row -->
+
+      <div class="row">
+                                                <!-- home team member -->
+        <div class="col-sm-3 mr-auto">
+          <div class="form-group">
+            <%= f.label :home_player_one_id, t("Select Home Player 1"), :class=> "bmd-label-floating" %>
+            <%= f.select :home_player_one_id, {}, {include_blank: false}, { "class": " form-control", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8" } %>
+          </div>
+        </div>
+
+        <div class="col-sm-3 mr-auto home-player2">
+          <div class="form-group">
+            <%= f.label :home_player_two_id, t("Select Home Player 2"), :class=> "bmd-label-floating" %>
+            <%= f.select :home_player_two_id, {}, {include_blank: false}, { "class": " form-control", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8" } %>
+          </div>
+        </div>
+
+                                                <!-- away team member -->
+        <div class="col-sm-3 mr-auto away-player2">
+          <div class="form-group">
+            <%= f.label :away_player_two_id, t("Select Away Player 2"), :class=> "bmd-label-floating float-right" %>
+            <%= f.select :away_player_two_id, {}, {include_blank: false}, { "class": " form-control", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8" } %>
+          </div>
+        </div>
+        
+        <div class="col-sm-3 float-left">
+          <div class="form-group">
+            <%= f.label :away_player_one_id, t("Select Away Player 1"), :class=> "bmd-label-floating float-right" %>
+            <%= f.select :away_player_one_id, {}, {include_blank: false}, { "class": " form-control", "data-style": "btn-np btn-link", "title": "Select Industry...", "data-size": "8" } %>
+          </div>
+        </div>
+
+      </div>
+      <!-- end third row -->
+       
+      <% $i = 0 %>
+      <% $num = 3 %>
+      <% while $i < $num  do  %>
+        <%= f.fields_for :games , @games  do |detail_form| %>
+          <%= render "games", :f => detail_form, :num => $i %>
+        <% end %>
+        <% $i +=1 %>
+      <% end %>
+
+      <div class="row"> 
+        <div class="col-sm-2">
+          <h6 class="mt-2">
+            Result
+          </h6>
+        </div>
+      </div>
+
+
+      <div class="row">
+      
+        <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+          <%= f.label :winner_team_id, t("winner"), :class=> "" %>
+            <div class="form-group">
+              <%= text_field :winner_team, :text, autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+              <%= f.hidden_field :winner_team_id, :class => "result-data" %>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mr-auto" style="margin-top:30px;">
+          <%= f.label :winner_team_id, t("Loser"), :class=> "bmd-label-floating" %>
+            <div class="form-group">
+                <%= text_field :loser_team, :text, autofocus: false, :class =>"form-control result-data", autocomplete: "off" , :disabled => true %>
+                <%= f.hidden_field :loser_team_id, :class => "result-data" %>
+            </div>
+        </div>      
+
+      </div>
+      <!-- end fourth row -->
+
+      
+    </div>
+    <!-- col-md-12 -->
+  </div>
+  <!-- end row mt-3 -->
+</div>
+<!-- end card-body -->
+
+<!-- footer-->
+<div class="card-footer">   
+    <button type="submit" class="btn btn-fill btn-primary btn-submit">Save</button> 
+    <%= link_to t("back"), admin_matches_path, {:class => "btn btn-link btn-primary mr-auto" } %>
+</div>
+<% end %>
+
+
+<script>
+
+//generate list of teams into array
+var team =  function(){
+
+  let team_array = [];
+  let i = 0;
+  <% @teams.each do |team| %>
+    team_array[i] = {
+      id: '<%= team.id %>',
+      name: '<%= team.team_name  %>'
+      };
+
+      i++;
+  <% end %>
+
+  return team_array;
+};
+
+	
+//assign team text field for autocomplete
+$('.typeahead-team').each(function(){
+  var $this = $(this);
+  $this.typeahead({
+
+      source: team(),
+      highlight: true,
+      minLength: 0,
+      limit: Infinity,
+      updater:function (item) {
+
+        //set value for hidden input
+        $this.nextAll('input:hidden').val(item.id);
+
+        //ajax get memeber/player list
+        //to know what team text box: away or home
+        var team_data = $this.attr( "team" );
+        getPlayers(item.id, team_data);
+
+        return item;
+      }
+  
+    });
+  });
+
+//ajax get member/player list
+function getPlayers(team_id, team_data) {
+ 
+  let game_type_id = $( "#match_game_type_id" ).val();
+
+  $.ajax({
+    url: "/admin/matches/get_players",
+    type: "GET",
+    data: {"team_id": team_id, 'game_type_id': game_type_id},
+    dataType: "json",
+    success: function(data) {
+      
+        //if game is one player. pump all player list into player 1 selection field
+        if (game_type_id == 1)
+        {
+          for (var key in data.data) {
+            var options = options + "<option value='" + data.data[key].id +"'>" + data.data[key].first_name + " " + data.data[key].last_name + "</option> \n";
+          }
+
+          $("#match_"+ team_data +"_player_one_id option").remove();
+          $("#match_"+ team_data +"_player_one_id").append($.parseHTML(options));        
+
+        }else
+        {
+          $("#match_"+ team_data +"_player_one_id option").remove();
+          $("#match_"+ team_data +"_player_two_id option").remove();
+
+          for (var key in data.data) {
+            if (key == 1) {
+              $("#match_"+ team_data +"_player_one_id").append($.parseHTML("<option value='" + data.data[key].id +"'>" + data.data[key].first_name + " " + data.data[key].last_name + "</option>")) ;
+            }else{
+              $("#match_"+ team_data +"_player_two_id").append($.parseHTML("<option value='" + data.data[key].id +"'>" + data.data[key].first_name + " " + data.data[key].last_name + "</option>"));
+            }
+          }
+
+        }
+    }
+
+  });	
+};  
+
+
+//----------event part-------------------
+
+
+//game type change clear all fields
+$( "#match_game_type_id" ).change(function() {
+  
+      if (this.value == 1)
+      {
+        $(".home-player2").hide();
+        $(".away-player2").hide();
+        
+        //reset member options for select
+        $("#match_home_player_one_id option").remove();
+        $("#match_home_player_two_id option").remove();
+        $("#match_away_player_one_id option").remove();
+        $("#match_away_player_two_id option").remove();
+        $("#away_team_text").val("");
+        $("#home_team_text").val("");
+        $("#match_home_team_id").val("");
+        $("#match_away_team_id").val("");
+        $(".score").val("");
+        $(".result-data").val("");
+        
+
+      }else
+      {
+        $(".home-player2").show();
+        $(".away-player2").show();
+        
+        //reset member options for select
+        $("#match_home_player_one_id option").remove();
+        $("#match_home_player_two_id option").remove();
+        $("#match_away_player_one_id option").remove();
+        $("#match_away_player_two_id option").remove();
+        $("#home_team_text").val("");
+        $("#away_team_text").val("");
+        $("#match_home_team_id").val("");
+        $("#match_away_team_id").val("");
+        $(".score").val("");
+        $(".result-data").val("");
+
+      }
+})
+
+
+//match winner/loser, compare from score
+$( ".score" ).change(function() {
+
+  let attribute = $("#" + this.id +"").attr("temporary-id");
+  
+  if ($("#match_games_attributes_"+ attribute +"_home_point").val() > $("#match_games_attributes_"+ attribute +"_away_point").val())
+  {
+
+    //home team win, set match details winner and loser (text and id)
+    $("#match_games_attributes_"+ attribute +"_winner_team_id").val($("#match_home_team_id").val());
+    $("#match_games_attributes_"+ attribute +"_loser_team_id").val($("#match_away_team_id").val());
+
+    $("#winner_team_text_" + attribute + "").val($("#home_team_text").val());
+    $("#loser_team_text_" + attribute + "").val($("#away_team_text").val());
+    
+  }
+
+  if ($("#match_games_attributes_"+ attribute +"_home_point").val() < $("#match_games_attributes_"+ attribute +"_away_point").val())
+    {
+  
+      //away team win, set match details winner and loser (text and id)
+      $("#match_games_attributes_"+ attribute +"_winner_team_id").val($("#match_away_team_id").val());
+      $("#match_games_attributes_"+ attribute +"_loser_team_id").val($("#match_home_team_id").val());
+  
+      $("#winner_team_text_" + attribute + "").val($("#away_team_text").val());
+      $("#loser_team_text_" + attribute + "").val($("#home_team_text").val());
+      
+    }
+  
+  //check match winner
+  determineMatchWinner();
+
+});
+
+//checking winner/loser with 3 posibilities
+function determineMatchWinner()
+{
+       
+
+  if ($("#match_games_attributes_0_winner_team_id").val() != "" && $("#match_games_attributes_1_winner_team_id").val() != "" && $("#match_games_attributes_2_winner_team_id").val() != "")
+    {
+      //clear match winner and loser
+      $("#winner_team_text").val("");
+      $("#match_winner_team_id").val("");  
+
+      $("#loser_team_text").val("");
+      $("#match_loser_team_id").val("");  
+
+      if ($("#match_games_attributes_0_winner_team_id").val() === $("#match_games_attributes_1_winner_team_id").val())
+      {
+        $("#winner_team_text").val($("#winner_team_text_0").val());
+        $("#match_winner_team_id").val($("#match_games_attributes_0_winner_team_id").val());
+
+        $("#loser_team_text").val($("#winner_team_text_2").val());
+        $("#match_loser_team_id").val($("#match_games_attributes_2_winner_team_id").val());  
+
+      } 
+      else if  ($("#match_games_attributes_0_winner_team_id").val() === $("#match_games_attributes_2_winner_team_id").val())
+      {
+        $("#winner_team_text").val($("#winner_team_text_0").val());
+        $("#match_winner_team_id").val($("#match_games_attributes_0_winner_team_id").val());
+
+        $("#loser_team_text").val($("#winner_team_text_1").val());
+        $("#match_loser_team_id").val($("#match_games_attributes_1_winner_team_id").val());  
+
+        
+      }
+      else if ($("#match_games_attributes_1_winner_team_id").val() === $("#match_games_attributes_2_winner_team_id").val())
+      {
+        $("#winner_team_text").val($("#winner_team_text_1").val());
+        $("#match_winner_team_id").val($("#match_games_attributes_1_winner_team_id").val());  
+
+        $("#loser_team_text").val($("#winner_team_text_0").val());
+        $("#match_loser_team_id").val($("#match_games_attributes_0_winner_team_id").val());  
+      }
+    }
+
+}
+
+</script>

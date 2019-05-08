@@ -1,0 +1,25 @@
+
+<!-- check if any error -->
+<% if @match.errors.any? %>
+
+
+    $('.is-error').remove();
+
+    <!-- show error message and higlight field for being error -->
+    <% @match.errors.each do |key, value| %>
+
+        show_error('<%= key %>', '<%= value %>', '<%= @match.class.name.demodulize %>');
+        
+        setTimeout (function()  {
+            show_notification('<%= value %>', 'warning');
+        }, 1000);
+
+    <% end %>
+
+
+<% else %>
+
+    <!-- after ajax save data, append saved data into datatable in index page -->
+    $("<%= j render @match %>").appendTo(".datatables.table-action");
+
+<% end %>

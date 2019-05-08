@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+
+      <!-- div box header -->
+      <div class="card-header card-header-icon card-header-primary">
+        <div class="card-icon">
+          <i class="material-icons">offline_bolt</i>
+  			  <p>Matches</p>
+        </div>
+        <h4 class="card-title">Matches</h4>
+      </div>
+
+      <!-- box content -->
+      <div class="card-body">
+        <div class="toolbar text-right">
+          <%= link_to new_admin_match_path(), class: "btn btn-primary btn-link" do %>
+            <i class="material-icons">add</i> Add New Match
+          <% end %>
+        </div>
+            
+        <!-- data table -->
+        <div class="material-datatables">
+        <table class="datatables table table-action non-first-col-ordering" cellspacing="0" width="100%" style="width:100%">
+            <thead>
+              <tr>
+                <th>Match Name</th>
+                <th>Game Type</th>
+                <th>Home Team</th>
+                <th>Away Team</th>
+                <th>Winner</th>
+                <th class="text-right" width=60>Edit</th>				
+                <th class="text-right" width=60>View</th>
+                <th class="text-right" width=60>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: "admin/matches/match", collection: @matches %>
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- end card -->
+
+  </div>
+  <!-- end col-md-12 -->
+
+</div>    
+<!-- end row -->
+<%= render "admin/shared/custom" %>

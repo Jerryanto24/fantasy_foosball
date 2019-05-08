@@ -2,6 +2,8 @@ class User < ApplicationRecord
 
     #relationship
     has_one :team
+    has_many :matches
+    has_many :games
 
     #validate presence/cannot be blank for fields
     validates_presence_of :first_name, message: "First name can't be blank "
