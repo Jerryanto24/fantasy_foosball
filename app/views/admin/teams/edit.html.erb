@@ -7,7 +7,7 @@
                     <i class="material-icons">group_work</i>
   			        <p>Teams</p>
                 </div>
-                <h4 class="card-title">Edit team</h4>
+                <h4 class="card-title">Edit Team</h4>
             </div>
 
             <%= form_with(model: [:admin, @team]) do |f| %>
@@ -30,7 +30,7 @@
                       <div class="form-group">
                         <%= f.label :player_one, t("Player One"), :class=> "bmd-label-floating" %>
                         <%= f.text_field :player_one_text, autofocus: false, :class =>"form-control typeahead", autocomplete: "off"%>
-                        <%= f.hidden_field :player_one_id, :temporary_data => f.object.player_one.first_name + ' ' + f.object.player_one.last_name %>
+                        <%= f.hidden_field :player_one_id, :temporary_data => (f.object.player_one_id ? f.object.player_one.first_name + ' ' + f.object.player_one.last_name : "") %>
                       </div>
                     </div>
                   </div>
@@ -40,7 +40,7 @@
                       <div class="form-group">
                         <%= f.label :player_two, t("Player Two"), :class=> "bmd-label-floating" %>
                         <%= f.text_field :player_two_text, autofocus: false, :class =>"form-control typeahead", autocomplete: "off"%>
-                        <%= f.hidden_field :player_two_id, :temporary_data => f.object.player_two.first_name + ' ' + f.object.player_two.last_name %>
+                        <%= f.hidden_field :player_two_id, :temporary_data => (f.object.player_two_id ? f.object.player_two.first_name + ' ' + f.object.player_two.last_name : "") %>
                       </div>
                     </div>
                   </div>
@@ -94,7 +94,7 @@ $('.typeahead').each(function(){
 
       source: user(),
       highlight: true,
-      minLength: 1,
+      minLength: 0,
       limit: Infinity,
       updater:function (item) {
 
