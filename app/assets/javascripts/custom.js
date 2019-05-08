@@ -108,20 +108,24 @@ var show_notification = function(message, type, icon="", from='top', align='righ
   if (icon == '') icon = icons[type];
 
   // init bootstrap notify
-  $.notify({
-    icon: icon,
-    message: html_unescape(message)
-  }, {
-    allow_dismiss: true,
-    newest_on_top: true,
-    mouse_over: 'pause',
-    timer: 1000,
-    type: 'alert ' + types[type],
-    placement: {
-      from: from,
-      align: align
-    }
-  });
+  if (message != "")
+  {
+	  $.notify({
+		icon: icon,
+		message: html_unescape(message)
+	  }, {
+		allow_dismiss: true,
+		newest_on_top: true,
+		mouse_over: 'pause',
+		timer: 3000,
+		type: 'alert ' + types[type],
+		placement: {
+		  from: from,
+		  align: align
+		}
+	  });
+  }
+  
 };
 
 //--------------------------- END OF BOOTSTRAP NOTIFY PART ------------------------------
@@ -160,27 +164,60 @@ var show_error = function(field, error, model) {
   if (error == "can't be blank") {
     error_msg = to_title_case(field) + ' ' + error;
   } 
-
-  // textbox
-  $('input[id='+ model + '_' + field + ']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
-    .after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
-    .parents('.form-group').addClass('has-danger')
-    .find('.bmd-help').not('.is-error').remove();
   
-  // select
-  $('select[id='+ model + '_' + field + ']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
-    .after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
-    .parents('.form-group').addClass('has-danger')
-    .find('.bmd-help').not('.is-error').remove();
-    
-  // datepicker
+	//check if has (dot)
+	let indexOfDot = field.indexOf('.');
 
-  // textarea
-  $('textarea[id='+ model + '_' + field + ']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
-    .after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
-    .parents('.form-group').addClass('has-danger')
-    .find('.bmd-help').not('.is-error').remove();
-  
+	if(indexOfDot !== -1)
+	{
+	  //get field value
+	  let field_name = field.substring(indexOfDot + 1, field.length)
+	  
+	  
+	  	  // textbox
+	  $('input[id*='+ field_name +']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
+		.after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
+		.parents('.form-group').addClass('has-danger')
+		.find('.bmd-help').not('.is-error').remove();
+	  
+	  // select
+	  $('select[id*='+ field_name +']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
+		.after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
+		.parents('.form-group').addClass('has-danger')
+		.find('.bmd-help').not('.is-error').remove();
+		
+	  // datepicker
+
+	  // textarea
+	  $('textarea[id*='+ field_name +']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
+		.after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
+		.parents('.form-group').addClass('has-danger')
+		.find('.bmd-help').not('.is-error').remove();
+	}
+	else
+	{
+
+	  // textbox
+	  $('input[id='+ model + '_' + field + ']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
+		.after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
+		.parents('.form-group').addClass('has-danger')
+		.find('.bmd-help').not('.is-error').remove();
+	  
+	  // select
+	  $('select[id='+ model + '_' + field + ']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
+		.after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
+		.parents('.form-group').addClass('has-danger')
+		.find('.bmd-help').not('.is-error').remove();
+		
+	  // datepicker
+
+	  // textarea
+	  $('textarea[id='+ model + '_' + field + ']').after('<span class="bmd-help text-danger is-error">' + error_msg + '</span>')
+		.after('<span class="form-control-feedback is-error"><i class="material-icons">error</i></span>')
+		.parents('.form-group').addClass('has-danger')
+		.find('.bmd-help').not('.is-error').remove();
+		
+	}
   // checkbox
   // radio
 };
